@@ -14,6 +14,7 @@ The following database tables need to be created:
 CREATE TABLE {$wpdb->prefix}queue_jobs (
 id bigint(20) NOT NULL AUTO_INCREMENT,
 job longtext NOT NULL,
+category text NOT NULL,
 attempts tinyint(3) NOT NULL DEFAULT 0,
 reserved_at datetime DEFAULT NULL,
 available_at datetime NOT NULL,
@@ -80,7 +81,7 @@ wp_queue()->push( new Subscribe_User_Job( 12345 ) );
 You can create delayed jobs by passing an optional second parameter to the `push` method. This job will be delayed by 60 minutes:
 
 ```
-wp_queue()->push( new Subscribe_User_Job( 12345 ), 3600 );
+wp_queue()->push( new Subscribe_User_Job( 12345 ), 'category', 3600 );
 ```
 
 ## Cron Worker
