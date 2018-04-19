@@ -31,6 +31,7 @@ if ( ! function_exists( 'wp_queue_install_tables' ) ) {
 		$sql = "CREATE TABLE {$wpdb->prefix}queue_jobs (
 				id bigint(20) NOT NULL AUTO_INCREMENT,
 				job longtext NOT NULL,
+				category tinytext NOT NULL,
 				attempts tinyint(3) NOT NULL DEFAULT 0,
 				reserved_at datetime DEFAULT NULL,
 				available_at datetime NOT NULL,
