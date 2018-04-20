@@ -11,11 +11,6 @@ abstract class Job {
 	 * @var int
 	 */
 	private $id;
-	
-	/**
-	 * @var Category
-	 */
-	private $category;
 
 	/**
 	 * @var int
@@ -68,15 +63,6 @@ abstract class Job {
 	 */
 	public function set_id( $id ) {
 		$this->id = $id;
-	}
-	
-	/**
-	 * Set Job Category.
-	 *
-	 * @param text $category Category.
-	 */
-	public function set_category( $category ) {
-		$this->category = $category;
 	}
 
 	/**
