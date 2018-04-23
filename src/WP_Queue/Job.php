@@ -5,6 +5,11 @@ namespace WP_Queue;
 use Carbon\Carbon;
 use Exception;
 
+/**
+ * Abstract Job class.
+ * 
+ * @abstract
+ */
 abstract class Job {
 
 	/**

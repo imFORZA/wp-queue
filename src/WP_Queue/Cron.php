@@ -2,6 +2,9 @@
 
 namespace WP_Queue;
 
+/**
+ * Cron class.
+ */
 class Cron {
 
 	/**

@@ -4,6 +4,9 @@ namespace WP_Queue;
 
 use WP_Queue\Connections\ConnectionInterface;
 
+/**
+ * Queue class.
+ */
 class Queue {
 
 	/**

@@ -6,6 +6,9 @@ use WP_Queue\Connections\DatabaseConnection;
 use WP_Queue\Connections\RedisConnection;
 use WP_Queue\Exceptions\ConnectionNotFoundException;
 
+/**
+ * QueueManager class.
+ */
 class QueueManager {
 
 	/**
