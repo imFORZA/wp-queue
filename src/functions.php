@@ -1,5 +1,5 @@
 <?php
-	
+
 use WP_Queue\Queue;
 use WP_Queue\QueueManager;
 
@@ -23,7 +23,7 @@ if ( ! function_exists( 'wp_queue_install_tables' ) ) {
 	function wp_queue_install_tables() {
 		global $wpdb;
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 
 		$wpdb->hide_errors();
 		$charset_collate = $wpdb->get_charset_collate();

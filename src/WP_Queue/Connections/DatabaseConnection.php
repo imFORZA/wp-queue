@@ -43,12 +43,14 @@ class DatabaseConnection implements ConnectionInterface {
 	 * @return bool|int
 	 */
 	public function push( Job $job, $category = '', $delay = 0 ) {
-		$result = $this->database->insert( $this->jobs_table, array(
-			'job'          => serialize( $job ),
-			'category'     => $category,
-			'available_at' => $this->datetime( $delay ),
-			'created_at'   => $this->datetime(),
-		) );
+		$result = $this->database->insert(
+			$this->jobs_table, array(
+				'job'          => serialize( $job ),
+				'category'     => $category,
+				'available_at' => $this->datetime( $delay ),
+				'created_at'   => $this->datetime(),
+			)
+		);
 
 		if ( ! $result ) {
 			return false;
@@ -65,13 +67,15 @@ class DatabaseConnection implements ConnectionInterface {
 	public function pop() {
 		$this->release_reserved();
 
-		$sql = $this->database->prepare( "
+		$sql = $this->database->prepare(
+			"
 			SELECT * FROM {$this->jobs_table}
 			WHERE reserved_at IS NULL
 			AND available_at <= %s
 			ORDER BY available_at
 			LIMIT 1
-		", $this->datetime() );
+		", $this->datetime()
+		);
 
 		$raw_job = $this->database->get_row( $sql );
 
@@ -138,11 +142,13 @@ class DatabaseConnection implements ConnectionInterface {
 	 * @return bool
 	 */
 	public function failure( $job, Exception $exception ) {
-		$insert = $this->database->insert( $this->failures_table, array(
-			'job'       => serialize( $job ),
-			'error'     => $this->format_exception( $exception ),
-			'failed_at' => $this->datetime(),
-		) );
+		$insert = $this->database->insert(
+			$this->failures_table, array(
+				'job'       => serialize( $job ),
+				'error'     => $this->format_exception( $exception ),
+				'failed_at' => $this->datetime(),
+			)
+		);
 
 		if ( $insert ) {
 			$this->delete( $job );
@@ -160,7 +166,7 @@ class DatabaseConnection implements ConnectionInterface {
 	 */
 	public function jobs() {
 		$sql = "SELECT COUNT(*) FROM {$this->jobs_table}";
-		
+
 		return (int) $this->database->get_var( $sql );
 	}
 
@@ -185,9 +191,11 @@ class DatabaseConnection implements ConnectionInterface {
 			'reserved_at' => $this->datetime(),
 		);
 
-		$this->database->update( $this->jobs_table, $data, array(
-			'id' => $job->id(),
-		) );
+		$this->database->update(
+			$this->jobs_table, $data, array(
+				'id' => $job->id(),
+			)
+		);
 	}
 
 	/**
@@ -196,10 +204,12 @@ class DatabaseConnection implements ConnectionInterface {
 	protected function release_reserved() {
 		$expired = $this->datetime( -300 );
 
-		$sql = $this->database->prepare( "
+		$sql = $this->database->prepare(
+			"
 				UPDATE {$this->jobs_table}
 				SET attempts = attempts + 1, reserved_at = NULL
-				WHERE reserved_at <= %s", $expired );
+				WHERE reserved_at <= %s", $expired
+		);
 
 		$this->database->query( $sql );
 	}

@@ -16,7 +16,6 @@ class RedisConnection implements ConnectionInterface {
 	 * @return bool|int
 	 */
 	public function push( Job $job, $category = '', $delay = 0 ) {
-		//
 	}
 
 	/**
@@ -25,7 +24,6 @@ class RedisConnection implements ConnectionInterface {
 	 * @return bool|Job
 	 */
 	public function pop() {
-		//
 	}
 
 	/**
@@ -34,7 +32,6 @@ class RedisConnection implements ConnectionInterface {
 	 * @param Job $job
 	 */
 	public function delete( $job ) {
-		//
 	}
 
 	/**
@@ -43,7 +40,6 @@ class RedisConnection implements ConnectionInterface {
 	 * @param Job $job
 	 */
 	public function release( $job ) {
-		//
 	}
 
 	/**
@@ -53,7 +49,6 @@ class RedisConnection implements ConnectionInterface {
 	 * @param Exception $exception
 	 */
 	public function failure( $job, Exception $exception ) {
-		//
 	}
 
 	/**
@@ -62,7 +57,6 @@ class RedisConnection implements ConnectionInterface {
 	 * @return int
 	 */
 	public function jobs() {
-		//
 	}
 
 	/**
@@ -71,7 +65,6 @@ class RedisConnection implements ConnectionInterface {
 	 * @return int
 	 */
 	public function failed_jobs() {
-		//
 	}
 
 }

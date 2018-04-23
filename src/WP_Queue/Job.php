@@ -141,7 +141,7 @@ abstract class Job {
 	 * Flag job as released.
 	 */
 	public function release() {
-		$this->released = true;
+		$this->released  = true;
 		$this->attempts += 1;
 	}
 
