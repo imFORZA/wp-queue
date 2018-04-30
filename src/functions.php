@@ -33,6 +33,7 @@ if ( ! function_exists( 'wp_queue_install_tables' ) ) {
 				job longtext NOT NULL,
 				category tinytext NOT NULL,
 				attempts tinyint(3) NOT NULL DEFAULT 0,
+				priority tinyint(4) NOT NULL DEFAULT 0,
 				reserved_at datetime DEFAULT NULL,
 				available_at datetime NOT NULL,
 				created_at datetime NOT NULL,
