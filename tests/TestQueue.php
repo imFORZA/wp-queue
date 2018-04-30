@@ -7,16 +7,39 @@ use WP_Queue\Job;
 use WP_Queue\Queue;
 use WP_Queue\Worker;
 
+/**
+ * TestQueue class.
+ *
+ * @extends TestCase
+ */
 class TestQueue extends TestCase {
 
+	/**
+	 * setUp function.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function setUp() {
 		WP_Mock::setUp();
 	}
 
+	/**
+	 * tearDown function.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function tearDown() {
 		WP_Mock::tearDown();
 	}
 
+	/**
+	 * test_push_success function.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function test_push_success() {
 		$insert_id  = 12345;
 		$connection = Mockery::mock( ConnectionInterface::class );
@@ -27,6 +50,12 @@ class TestQueue extends TestCase {
 		$this->assertEquals( $insert_id, $queue->push( new TestJob() ) );
 	}
 
+	/**
+	 * test_push_fail function.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function test_push_fail() {
 		$connection = Mockery::mock( ConnectionInterface::class );
 		$connection->shouldReceive( 'push' )->once()->andReturn( false );
@@ -36,6 +65,12 @@ class TestQueue extends TestCase {
 		$this->assertFalse( $queue->push( new TestJob() ) );
 	}
 
+	/**
+	 * test_cron function.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function test_cron() {
 		$connection = Mockery::mock( ConnectionInterface::class );
 		$queue      = new Queue( $connection );
@@ -47,6 +82,12 @@ class TestQueue extends TestCase {
 		$this->assertInstanceOf( Cron::class, $queue->cron() );
 	}
 
+	/**
+	 * test_worker function.
+	 *
+	 * @access public
+	 * @return void
+	 */
 	public function test_worker() {
 		$connection = Mockery::mock( ConnectionInterface::class );
 		$queue      = new Queue( $connection );
@@ -56,7 +97,20 @@ class TestQueue extends TestCase {
 }
 
 if ( ! class_exists( 'TestJob' ) ) {
+
+	/**
+	 * TestJob class.
+	 *
+	 * @extends Job
+	 */
 	class TestJob extends Job {
+
+		/**
+		 * handle function.
+		 *
+		 * @access public
+		 * @return void
+		 */
 		public function handle() {}
 	}
 }
