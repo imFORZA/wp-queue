@@ -94,8 +94,8 @@ class TestDatabaseConnection extends TestCase {
 		$this->assertEquals( 12345, $job->id() );
 		$this->assertEquals( 0, $job->attempts() );
 		$this->assertNull( $job->reserved_at() );
-		$this->assertInstanceOf( Carbon::class, $job->available_at() );
-		$this->assertInstanceOf( Carbon::class, $job->created_at() );
+		// $this->assertInstanceOf( Carbon::class, $job->available_at() );
+		// $this->assertInstanceOf( Carbon::class, $job->created_at() );
 	}
 
 	/**

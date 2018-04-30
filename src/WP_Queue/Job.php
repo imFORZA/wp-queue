@@ -22,17 +22,17 @@ abstract class Job {
 	private $attempts;
 
 	/**
-	 * @var Carbon
+	 * @var Reserved At.
 	 */
 	private $reserved_at;
 
 	/**
-	 * @var Carbon
+	 * @var Available At.
 	 */
 	private $available_at;
 
 	/**
-	 * @var Carbon
+	 * @var Created At.
 	 */
 	private $created_at;
 
@@ -90,7 +90,7 @@ abstract class Job {
 	/**
 	 * Get reserved at date.
 	 *
-	 * @return Carbon
+	 * @return Reserved At.
 	 */
 	public function reserved_at() {
 		return $this->reserved_at;
@@ -117,9 +117,9 @@ abstract class Job {
 	/**
 	 * Set available at date.
 	 *
-	 * @param Carbon $available_at
+	 * @param Carbon $available_at Available At.
 	 */
-	public function set_available_at( Carbon $available_at ) {
+	public function set_available_at( $available_at ) {
 		$this->available_at = $available_at;
 	}
 
@@ -135,9 +135,9 @@ abstract class Job {
 	/**
 	 * Set created at date.
 	 *
-	 * @param Carbon $created_at
+	 * @param Carbon $created_at Created At.
 	 */
-	public function set_created_at( Carbon $created_at ) {
+	public function set_created_at( $created_at ) {
 		$this->created_at = $created_at;
 	}
 
