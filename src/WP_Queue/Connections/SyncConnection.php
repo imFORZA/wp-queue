@@ -5,6 +5,11 @@ namespace WP_Queue\Connections;
 use Exception;
 use WP_Queue\Job;
 
+/**
+ * SyncConnection class.
+ *
+ * @implements ConnectionInterface
+ */
 class SyncConnection implements ConnectionInterface {
 	/**
 	 * Push a job onto the queue.
@@ -14,7 +19,7 @@ class SyncConnection implements ConnectionInterface {
 	 *
 	 * @return bool|int
 	 */
-	public function push(Job $job, $delay = 0) {
+	public function push (Job $job, $category = '', $delay = 0 ) {
 		$job->handle();
 
 		return true;
@@ -36,7 +41,7 @@ class SyncConnection implements ConnectionInterface {
 	 *
 	 * @return bool
 	 */
-	public function delete($job) {
+	public function delete( $job ) {
 		return false;
 	}
 
@@ -47,7 +52,7 @@ class SyncConnection implements ConnectionInterface {
 	 *
 	 * @return bool
 	 */
-	public function release($job) {
+	public function release( $job ) {
 		return false;
 	}
 
@@ -59,7 +64,7 @@ class SyncConnection implements ConnectionInterface {
 	 *
 	 * @return bool
 	 */
-	public function failure($job, Exception $exception) {
+	public function failure( $job, Exception $exception ) {
 		return false;
 	}
 
