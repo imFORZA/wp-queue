@@ -13,7 +13,7 @@ use WP_Queue\Worker;
 class TestWorker extends TestCase {
 
 	/**
-	 * setUp function.
+	 * Setup.
 	 *
 	 * @access public
 	 * @return void
@@ -23,7 +23,7 @@ class TestWorker extends TestCase {
 	}
 
 	/**
-	 * tearDown function.
+	 * Tear Down.
 	 *
 	 * @access public
 	 * @return void
@@ -33,7 +33,7 @@ class TestWorker extends TestCase {
 	}
 
 	/**
-	 * test_process_success function.
+	 * Test Process Success.
 	 *
 	 * @access public
 	 * @return void
@@ -48,7 +48,7 @@ class TestWorker extends TestCase {
 	}
 
 	/**
-	 * test_process_fail function.
+	 * Test Process Fail.
 	 *
 	 * @access public
 	 * @return void
