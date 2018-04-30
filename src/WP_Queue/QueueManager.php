@@ -24,6 +24,8 @@ class QueueManager {
 	 * @return Queue
 	 */
 	public static function resolve( $connection ) {
+		$connection = apply_filters( 'wp_queue_default_connection', $connection );
+
 		if ( isset( static::$instances[ $connection ] ) ) {
 			return static::$instances[ $connection ];
 		}
@@ -60,6 +62,7 @@ class QueueManager {
 		$connections = array(
 			'database' => new DatabaseConnection( $GLOBALS['wpdb'] ),
 			'redis'    => new RedisConnection(),
+			'sync'     => new SyncConnection(),
 		);
 
 		return apply_filters( 'wp_queue_connections', $connections );
