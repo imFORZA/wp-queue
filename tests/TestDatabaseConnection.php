@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 use WP_Queue\Connections\DatabaseConnection;
 use WP_Queue\Job;

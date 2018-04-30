@@ -2,7 +2,6 @@
 
 namespace WP_Queue\Connections;
 
-use Carbon\Carbon;
 use Exception;
 use WP_Queue\Job;
 
@@ -226,11 +225,12 @@ class DatabaseConnection implements ConnectionInterface {
 
 		$job->set_id( $raw_job->id );
 		$job->set_attempts( $raw_job->attempts );
-		$job->set_reserved_at( empty( $raw_job->reserved_at ) ? null : new Carbon( $raw_job->reserved_at ) );
-		$job->set_available_at( new Carbon( $raw_job->available_at ) );
-		$job->set_created_at( new Carbon( $raw_job->created_at ) );
+		$job->set_reserved_at( empty( $raw_job->reserved_at ) ? null : current_time( $raw_job->reserved_at ) );
+		$job->set_available_at( current_time( $raw_job->available_at ) );
+		$job->set_created_at( current_time( $raw_job->created_at ) );
 
 		return $job;
+
 	}
 
 	/**
