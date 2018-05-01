@@ -11,7 +11,11 @@ if ( ! function_exists( 'wp_queue' ) ) {
 	 *
 	 * @return Queue
 	 */
-	function wp_queue( $connection = 'database' ) {
+	function wp_queue( $connection = '' ) {
+		if( empty( $connection ) ) {
+			$connection = apply_filters( 'wp_queue_default_connection', 'database' );
+		}
+		
 		return QueueManager::resolve( $connection );
 	}
 }

@@ -4,6 +4,7 @@ namespace WP_Queue;
 
 use WP_Queue\Connections\DatabaseConnection;
 use WP_Queue\Connections\RedisConnection;
+use WP_Queue\Connections\SyncConnection;
 use WP_Queue\Exceptions\ConnectionNotFoundException;
 
 /**
