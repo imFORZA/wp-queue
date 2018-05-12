@@ -106,9 +106,11 @@ wp_queue()->cron( 3 );
 When developing locally you may want jobs processed instantly, instead of them being pushed to the queue. This can be useful for debugging jobs via Xdebug. Add the following filter to use the `sync` connection:
 
 ```
-add_filter( ‘wp_queue_default_connection’, function() {
-	return ‘sync’;
-} );
+if ( WP_DEBUG ) {
+	add_filter( ‘wp_queue_default_connection’, function() {
+		return ‘sync’;
+	} );
+}
 ```
 
 ## License
