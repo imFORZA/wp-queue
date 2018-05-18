@@ -41,7 +41,7 @@ class DatabaseConnection implements ConnectionInterface {
 	 *
 	 * @return bool|int
 	 */
-	public function push( Job $job, $category = '', $delay = 0 ) {
+	public function push( Job $job, $delay = 0, $category = '' ) {
 		$result = $this->database->insert(
 			$this->jobs_table, array(
 				'job'          => serialize( $job ),
