@@ -107,8 +107,8 @@ When developing locally you may want jobs processed instantly, instead of them b
 
 ```
 if ( WP_DEBUG ) {
-	add_filter( ‘wp_queue_default_connection’, function() {
-		return ‘sync’;
+	add_filter( 'wp_queue_default_connection', function() {
+		return 'sync';
 	} );
 }
 ```
