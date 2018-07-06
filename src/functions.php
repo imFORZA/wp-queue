@@ -57,3 +57,19 @@ if ( ! function_exists( 'wp_queue_install_tables' ) ) {
 		dbDelta( $sql );
 	}
 }
+
+if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
+	/**
+	 * Un-Install database tables
+	 */
+	function wp_queue_uninstall_tables() {
+		global $wpdb;
+     		$sql = "DROP TABLE IF EXISTS {$wpdb->prefix}queue_jobs;";
+		
+		dbDelta( $sql );
+		
+		$sql = "DROP TABLE IF EXISTS {$wpdb->prefix}queue_failures;";
+		
+		dbDelta( $sql );
+	}
+}
