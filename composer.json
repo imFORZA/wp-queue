@@ -1,5 +1,5 @@
 {
-    "name": "a5hleyrich/wp-queue",
+    "name": "wp-queue/wp-queue",
     "description": "WordPress job queues",
     "keywords": ["wordpress","queue","job"],
     "license": "MIT",
@@ -7,6 +7,10 @@
         {
             "name": "Ashley Rich",
             "email": "hello@ashleyrich.com"
+        }
+         {
+            "name": "imFORZA Team",
+            "email": "developers@imforza.com"
         }
     ],
     "require": {
