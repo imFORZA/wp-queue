@@ -59,6 +59,23 @@ if ( ! function_exists( 'wp_queue_install_tables' ) ) {
 }
 
 
+if ( ! function_exists( 'wp_queue_empty_tables' ) ) {
+	/**
+	 * Empty database tables.
+	 */
+	function wp_queue_empty_tables() {
+
+		global $wpdb;
+
+		$table_jobs = $wpdb->prefix . 'queue_jobs';
+		$table_failures = $wpdb->prefix . 'queue_failures';
+
+		$wpdb->query( "TRUNCATE TABLE $table_jobs" );
+		$wpdb->query( "TRUNCATE TABLE $table_failures" );
+
+	}
+}
+
 if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
 	/**
 	 * Un-Install database tables
@@ -70,11 +87,8 @@ if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
 		$table_jobs = $wpdb->prefix . 'queue_jobs';
 		$table_failures = $wpdb->prefix . 'queue_failures';
 
-		$sql = "DROP TABLE IF EXISTS $table_jobs";
-		$wpdb->query($sql);
-
-		$sql = "DROP TABLE IF EXISTS $table_failures";
-		$wpdb->query($sql);
+		$wpdb->query( "DROP TABLE IF EXISTS $table_jobs" );
+		$wpdb->query( "DROP TABLE IF EXISTS $table_failures" );
 
 	}
 }
