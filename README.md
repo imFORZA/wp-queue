@@ -12,7 +12,7 @@ WP_Queue requires PHP __7.0+__.
 
 The following database tables need to be created:
 
-```
+```PHP
 CREATE TABLE {$wpdb->prefix}queue_jobs (
 id bigint(20) NOT NULL AUTO_INCREMENT,
 job longtext NOT NULL,
@@ -40,7 +40,7 @@ Alternatively, you can call the `wp_queue_install_tables()` helper function to i
 
 Job classes should extend the `WP_Queue\Job` class and normally only contain a `handle` method which is called when the job is processed by the queue worker. Any data required by the job should be passed to the constructor and assigned to a public property. This data will remain available once the job is retrieved from the queue. Let's look at an example job class:
 
-```
+```PHP
 <?php
 
 use WP_Queue\Job;
@@ -77,13 +77,13 @@ class Subscribe_User_Job extends Job {
 
 Jobs can be pushed to the queue like so:
 
-```
+```PHP
 wp_queue()->push( new Subscribe_User_Job( 12345 ) );
 ```
 
 You can create delayed jobs by passing an optional second parameter to the `push` method. This job will be delayed by 60 minutes:
 
-```
+```PHP
 wp_queue()->push( new Subscribe_User_Job( 12345 ), 'category', 3600 );
 ```
 
@@ -91,13 +91,13 @@ wp_queue()->push( new Subscribe_User_Job( 12345 ), 'category', 3600 );
 
 Jobs need to be processed by a queue worker. You can start a cron worker like so, which piggy backs onto WP cron:
 
-```
+```PHP
 wp_queue()->cron();
 ```
 
 You can also specify the number of times a job should be attempted before being marked as a failure.
 
-```
+```PHP
 wp_queue()->cron( 3 );
 ```
 
@@ -105,7 +105,7 @@ wp_queue()->cron( 3 );
 
 When developing locally you may want jobs processed instantly, instead of them being pushed to the queue. This can be useful for debugging jobs via Xdebug. Add the following filter to use the `sync` connection:
 
-```
+```PHP
 if ( WP_DEBUG ) {
 	add_filter( 'wp_queue_default_connection', function() {
 		return 'sync';
