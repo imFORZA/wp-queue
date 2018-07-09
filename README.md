@@ -89,6 +89,10 @@ if ( WP_DEBUG ) {
 }
 ```
 
+## Uninstall
+
+When you are ready to uninstall WP Queue from your project you can remove the tables using the `wp_queue_uninstall_tables()` helper function.
+
 ## License
 
 WP Queue is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
