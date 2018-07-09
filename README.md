@@ -10,31 +10,7 @@
 
 WP_Queue requires PHP __7.0+__.
 
-The following database tables need to be created:
-
-```PHP
-CREATE TABLE {$wpdb->prefix}queue_jobs (
-id bigint(20) NOT NULL AUTO_INCREMENT,
-job longtext NOT NULL,
-category text NOT NULL,
-attempts tinyint(3) NOT NULL DEFAULT 0,
-priority tinyint(4) NOT NULL DEFAULT 0,
-reserved_at datetime DEFAULT NULL,
-available_at datetime NOT NULL,
-created_at datetime NOT NULL,
-PRIMARY KEY  (id)
-```
-
-```
-CREATE TABLE {$wpdb->prefix}queue_failures (
-id bigint(20) NOT NULL AUTO_INCREMENT,
-job longtext NOT NULL,
-error text DEFAULT NULL,
-failed_at datetime NOT NULL,
-PRIMARY KEY  (id)
-```
-
-Alternatively, you can call the `wp_queue_install_tables()` helper function to install the tables. If using WP_Queue in a plugin you may opt to call the helper from within your `register_activation_hook`.
+To get started you must install the database tables by calling the `wp_queue_install_tables()` helper function. If using WP_Queue in a plugin you may opt to call the helper from within your `register_activation_hook`.
 
 ## Jobs
 
