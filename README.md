@@ -91,7 +91,7 @@ if ( WP_DEBUG ) {
 
 ## Uninstall
 
-When you are ready to uninstall WP Queue from your project you can remove the tables using the `wp_queue_uninstall_tables()` helper function.
+When you are ready to uninstall WP Queue from your project you can completely remove the tables using the `wp_queue_uninstall_tables()` helper function, or simply empty the tables with the `wp_queue_empty_tables()` helper function.
 
 ## License
 
