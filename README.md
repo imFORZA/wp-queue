@@ -21,6 +21,11 @@ Job classes should extend the `WP_Queue\Job` class and normally only contain a `
 
 use WP_Queue\Job;
 
+/**
+ * Subscribe_User_Job class.
+ * 
+ * @extends Job
+ */
 class Subscribe_User_Job extends Job {
 
 	/**
