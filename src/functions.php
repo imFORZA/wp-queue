@@ -93,3 +93,22 @@ if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_queue_count_jobs' ) ) {
+
+	/**
+	 * WP Queue Count Jobs.
+	 *
+	 * @access public
+	 * @param string $category (default: '')
+	 * @return void
+	 */
+	function wp_queue_count_jobs( $category = '' ) {
+
+		global $wpdb;
+
+		$job_count = $wpdb->get_var( "SELECT COUNT(*) FROM " . $wpdb->prefix . 'queue_jobs' . "");
+
+		return $job_count;
+
+	}
+}
