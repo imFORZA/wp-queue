@@ -62,10 +62,10 @@ Jobs can be pushed to the queue like so:
 wp_queue()->push( new Subscribe_User_Job( 12345 ) );
 ```
 
-You can create delayed jobs by passing an optional second parameter to the `push` method. This job will be delayed by 60 minutes:
+You can pass in a Category Name, and you can create delayed jobs by passing an optional second parameter to the `push` method. This job will be delayed by 60 minutes in a category called example-category:
 
 ```PHP
-wp_queue()->push( new Subscribe_User_Job( 12345 ), 'category', 3600 );
+wp_queue()->push( new Subscribe_User_Job( 12345 ), 'example-category', 3600 );
 ```
 
 ## Cron Worker
