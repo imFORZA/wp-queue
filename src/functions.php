@@ -21,6 +21,40 @@ if ( ! function_exists( 'wp_queue' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_queue_options' ) ) {
+	/**
+	 * WP Queue Options.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	function wp_queue_options() {
+
+		update_option( 'wp_queue_version', '1.2.1', 'no' );
+		update_option( 'wp_queue_db_version', '1.2.1', 'no' );
+		update_option( 'wp_queue_api_version', '1.0.0', 'no' );
+		update_option( 'wp_queue_debug', 'true', 'yes' );
+
+	}
+}
+
+if ( ! function_exists( 'wp_queue_uninstall_options' ) ) {
+	/**
+	 * WP Queue Uninstall Options.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	function wp_queue_uninstall_options() {
+
+		delete_option( 'wp_queue_version' );
+		delete_option( 'wp_queue_db_version' );
+		delete_option( 'wp_queue_api_version' );
+		delete_option( 'wp_queue_debug' );
+
+	}
+}
+
 if ( ! function_exists( 'wp_queue_install_tables' ) ) {
 	/**
 	 * Install database tables
@@ -107,9 +141,97 @@ if ( ! function_exists( 'wp_queue_count_jobs' ) ) {
 
 		global $wpdb;
 
+		//TODO:
+		// Arguments to get count by category
+		// Arguments to get count by attempts
+		// Arguments to get count by priority
+		// Arguments to get count by reserved_at, available_at, created_at dates or date ranges
+
 		$job_count = $wpdb->get_var( "SELECT COUNT(*) FROM " . $wpdb->prefix . 'queue_jobs' . "");
 
 		return $job_count;
 
 	}
+}
+
+if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
+
+	/**
+	 * WP Queue Count Jobs.
+	 *
+	 * @access public
+	 * @param string $args Arguments
+	 * @return void
+	 */
+	function wp_queue_get_jobs( $args = '' ) {
+
+		global $wpdb;
+
+		//TODO:
+		// Arguments to get by category
+		// Arguments to get by attempts
+		// Arguments to get by priority
+		// Arguments to get by reserved_at, available_at, created_at dates or date ranges
+
+		$jobs = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . 'queue_jobs' . "");
+
+		return $jobs;
+
+	}
+}
+
+if ( ! function_exists( 'wp_queue_get_job_failures' ) ) {
+
+	/**
+	 * WP Queue Count Jobs.
+	 *
+	 * @access public
+	 * @param string $args Arguments
+	 * @return void
+	 */
+	function wp_queue_get_job_failures( $args = '' ) {
+
+		global $wpdb;
+
+		//TODO:
+		// Arguments to get by category
+		// Arguments to get by attempts
+		// Arguments to get by priority
+		// Arguments to get by reserved_at, available_at, created_at dates or date ranges
+
+		$failures = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . 'queue_failures' . "");
+
+		return $failures;
+
+	}
+}
+
+
+if ( ! function_exists( 'wp_queue_debug' ) ) {
+
+	/**
+	 * WP Queue Debug Mode
+	 *
+	 * @access public
+	 * @param string $debug_mode (default: 'false') Debug Mode.
+	 * @return void
+	 */
+	function wp_queue_debug( $debug_mode = 'false' ){
+
+		if( 'true' === $debug_mode ) {
+
+			update_option( 'wp_queue_debug', 'true', 'yes' );
+
+			add_filter( 'wp_queue_default_connection', function() {
+				return 'sync';
+			} );
+
+		} else {
+
+			update_option( 'wp_queue_debug', 'false', 'no' );
+
+		}
+
+	}
+
 }
