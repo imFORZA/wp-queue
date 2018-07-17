@@ -1,5 +1,6 @@
 <?php
-
+include_once( 'WP_Queue/Queue.php');
+include_once( 'WP_Queue/QueueManager.php');
 use WP_Queue\Queue;
 use WP_Queue\QueueManager;
 
@@ -15,7 +16,7 @@ if ( ! function_exists( 'wp_queue' ) ) {
 		if( empty( $connection ) ) {
 			$connection = apply_filters( 'wp_queue_default_connection', 'database' );
 		}
-		
+
 		return QueueManager::resolve( $connection );
 	}
 }

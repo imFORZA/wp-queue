@@ -2,6 +2,10 @@
 
 namespace WP_Queue;
 
+include_once( 'Connections/DatabaseConnection.php');
+include_once( 'Connections/RedisConnection.php');
+include_once( 'Connections/SyncConnection.php');
+include_once( 'Connections/ConnectionNotFoundException.php');
 use WP_Queue\Connections\DatabaseConnection;
 use WP_Queue\Connections\RedisConnection;
 use WP_Queue\Connections\SyncConnection;

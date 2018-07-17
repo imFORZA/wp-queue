@@ -2,6 +2,7 @@
 
 namespace WP_Queue;
 
+include_once( 'Connections/ConnectionInterface.php');
 use WP_Queue\Connections\ConnectionInterface;
 
 /**
