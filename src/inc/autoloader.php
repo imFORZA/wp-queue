@@ -27,12 +27,6 @@ function wp_queue_autoload( $class_name ) {
         return;
     }
 
-		// Split the class name into an array to read the namespace and class.
-	  //$file_parts = explode( '\\', $class_name );
-
-	  // Put it all back together to build the file path.
-		//$file_name = implode('/', $file_parts) . ".php";
-
 		$file_name = str_replace( '\\', '/', $class_name ) . ".php";
 
 		// Now build a path to the file using mapping to the file location.
@@ -41,7 +35,6 @@ function wp_queue_autoload( $class_name ) {
 
 			// If the file exists in the specified path, then include it.
 			if ( file_exists( $filepath ) ){
-				_error_log( $filepath );
     		include_once( $filepath );
 			} else {
     		wp_die(
