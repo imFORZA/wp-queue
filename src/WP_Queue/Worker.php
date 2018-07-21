@@ -3,8 +3,7 @@
 namespace WP_Queue;
 
 use Exception;
-include_once( 'Connections/ConnectionInterface.php');
-include_once( 'Connections/WorkerAttemptsExceededException.php');
+
 use WP_Queue\Connections\ConnectionInterface;
 use WP_Queue\Exceptions\WorkerAttemptsExceededException;
 

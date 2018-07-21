@@ -1,8 +1,8 @@
 <?php
-include_once( 'WP_Queue/Queue.php');
-include_once( 'WP_Queue/QueueManager.php');
 use WP_Queue\Queue;
 use WP_Queue\QueueManager;
+
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/autoloader.php');
 
 if ( ! function_exists( 'wp_queue' ) ) {
 	/**

@@ -22,3 +22,4 @@ include_once('src/debug-page.php');
 include_once('src/failure-page.php');
 
 wp_queue_options();
+register_activation_hook( __FILE__ , 'wp_queue_install_tables' );
