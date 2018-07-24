@@ -13,11 +13,13 @@ use WP_Queue\Exceptions\WorkerAttemptsExceededException;
 class Worker {
 
 	/**
+	 *
 	 * @var ConnectionInterface
 	 */
 	protected $connection;
 
 	/**
+	 *
 	 * @var int
 	 */
 	protected $attempts;

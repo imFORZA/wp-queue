@@ -13,6 +13,7 @@ use WP_Queue\Exceptions\ConnectionNotFoundException;
 class QueueManager {
 
 	/**
+	 *
 	 * @var array
 	 */
 	protected static $instances = array();

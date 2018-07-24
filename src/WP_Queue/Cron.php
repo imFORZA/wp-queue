@@ -8,16 +8,19 @@ namespace WP_Queue;
 class Cron {
 
 	/**
+	 *
 	 * @var string
 	 */
 	protected $id;
 
 	/**
+	 *
 	 * @var Worker
 	 */
 	protected $worker;
 
 	/**
+	 *
 	 * @var int
 	 */
 	protected $interval;

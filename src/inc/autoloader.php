@@ -3,7 +3,7 @@
  * Dynamically loads the class attempting to be instantiated elsewhere in the
  * plugin.
  *
- * @package Tutsplus_Namespace_Demo\Inc
+ * @package WP_Queue\Inc
  */
 
 spl_autoload_register( 'wp_queue_autoload' );
@@ -12,7 +12,7 @@ spl_autoload_register( 'wp_queue_autoload' );
  * Dynamically loads the class attempting to be instantiated elsewhere in the
  * plugin by looking at the $class_name parameter being passed as an argument.
  *
- * The argument should be in the form: TutsPlus_Namespace_Demo\Namespace. The
+ * The argument should be in the form: WP_Queue\Namespace. The
  * function will then break the fully-qualified class name into its pieces and
  * will then build a file to the path based on the namespace.
  *
@@ -27,9 +27,10 @@ function wp_queue_autoload( $class_name ) {
         return;
     }
 
+		// Replace Namespace backslashes and replace with dir forward slashes.
 		$file_name = str_replace( '\\', '/', $class_name ) . ".php";
 
-		// Now build a path to the file using mapping to the file location.
+		// Now build a path to the file location.
 		$filepath  = trailingslashit( dirname( dirname( __FILE__ ) ) );
 		$filepath .= $file_name;
 

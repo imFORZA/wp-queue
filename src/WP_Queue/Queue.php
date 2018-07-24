@@ -10,11 +10,13 @@ use WP_Queue\Connections\ConnectionInterface;
 class Queue {
 
 	/**
+	 *
 	 * @var ConnectionInterface
 	 */
 	protected $connection;
 
 	/**
+	 *
 	 * @var Cron
 	 */
 	protected $cron;

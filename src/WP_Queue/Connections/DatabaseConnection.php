@@ -8,16 +8,19 @@ use WP_Queue\Job;
 class DatabaseConnection implements ConnectionInterface {
 
 	/**
+	 *
 	 * @var wpdb
 	 */
 	protected $database;
 
 	/**
+	 *
 	 * @var string
 	 */
 	protected $jobs_table;
 
 	/**
+	 *
 	 * @var string
 	 */
 	protected $failures_table;

@@ -13,32 +13,43 @@ class WP_Queue_REST {
 	public function __construct() {
 
 		// WP Queue Basic Stats Endpoint.
-		add_action( 'rest_api_init', function(){
-			register_rest_route( 'queue/v1', 'stats', array(
-				'methods'  => array( 'get' ),
-				'callback' => array( $this, 'get_stats' ),
-				// 'permission_callback' => array( $this, 'permission_check' ),
-			));
-		});
+		add_action(
+			'rest_api_init', function() {
+				register_rest_route(
+					'queue/v1', 'stats', array(
+						'methods'  => array( 'get' ),
+						'callback' => array( $this, 'get_stats' ),
+					// 'permission_callback' => array( $this, 'permission_check' ),
+					)
+				);
+			}
+		);
 
 		// Get All Jobs.
-		add_action( 'rest_api_init', function(){
-			register_rest_route( 'queue/v1', 'jobs', array(
-				'methods'  => array( 'get' ),
-				'callback' => array( $this, 'get_jobs' ),
-				// 'permission_callback' => array( $this, 'permission_check' ),
-			));
-		});
+		add_action(
+			'rest_api_init', function() {
+				register_rest_route(
+					'queue/v1', 'jobs', array(
+						'methods'  => array( 'get' ),
+						'callback' => array( $this, 'get_jobs' ),
+					// 'permission_callback' => array( $this, 'permission_check' ),
+					)
+				);
+			}
+		);
 
 		// Get Job Count
-		add_action( 'rest_api_init', function(){
-			register_rest_route( 'queue/v1', 'jobs/count', array(
-				'methods'  => array( 'get' ),
-				'callback' => array( $this, 'count_jobs' ),
-				// 'permission_callback' => array( $this, 'permission_check' ),
-			));
-		});
-
+		add_action(
+			'rest_api_init', function() {
+				register_rest_route(
+					'queue/v1', 'jobs/count', array(
+						'methods'  => array( 'get' ),
+						'callback' => array( $this, 'count_jobs' ),
+					// 'permission_callback' => array( $this, 'permission_check' ),
+					)
+				);
+			}
+		);
 
 	}
 
@@ -51,9 +62,9 @@ class WP_Queue_REST {
 	public function get_stats() {
 
 		$response = array(
-			"db_version" => get_option( 'wp_queue_db_version' ),
-			"version" => get_option( 'wp_queue_version' ),
-			"api_version" => get_option( 'wp_queue_api_version' ),
+			'db_version'  => get_option( 'wp_queue_db_version' ),
+			'version'     => get_option( 'wp_queue_version' ),
+			'api_version' => get_option( 'wp_queue_api_version' ),
 		);
 
 		return rest_ensure_response( $response );
@@ -87,7 +98,7 @@ class WP_Queue_REST {
 	public function count_jobs() {
 
 		$response = array(
-			"total_jobs" => wp_queue_count_jobs()
+			'total_jobs' => wp_queue_count_jobs(),
 		);
 
 		return rest_ensure_response( $response );

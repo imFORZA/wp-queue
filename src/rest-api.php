@@ -6,11 +6,9 @@ function wp_queue_failures_menu() {
 	add_options_page( 'WP Queue Failures', 'WP Queue Failures', 'manage_options', 'wp-queue-failures', 'wp_queue_failures_page' );
 }
 
-function wp_queue_failures_page(){
+function wp_queue_failures_page() {
 	// TODO: https://premium.wpmudev.org/blog/wordpress-admin-tables/
-
-	wp_enqueue_script( 'data-tables', 'https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js', array('jquery'), null, true );
-
+	wp_enqueue_script( 'data-tables', 'https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.19/js/jquery.dataTables.min.js', array( 'jquery' ), null, true );
 
 	?>
 	<div class="wrap">
@@ -24,38 +22,38 @@ function wp_queue_failures_page(){
 			}
 			.dataTables_paginate {
 				float: right;
-			    height: 28px;
-			    margin-top: 3px;
-			    cursor: default;
-			    color: #555;
+				height: 28px;
+				margin-top: 3px;
+				cursor: default;
+				color: #555;
 			}
 			th.sorting, th.sorting_desc, th.sorting_asc {
 				color: #00a0d2 !important;
 			}
 			.sorting_asc::after {
-			    content: "\f142";
-			    font: 400 20px/1 dashicons;
-			    speak: none;
-			    display: inline-block;
-			    -webkit-font-smoothing: antialiased;
-			    -moz-osx-font-smoothing: grayscale;
-			    text-decoration: none!important;
-			    color: #444;
-			    vertical-align: bottom;
+				content: "\f142";
+				font: 400 20px/1 dashicons;
+				speak: none;
+				display: inline-block;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				text-decoration: none!important;
+				color: #444;
+				vertical-align: bottom;
 			}
 			.sorting_desc::after {
-			    content: "\f140";
-			    font: 400 20px/1 dashicons;
-			    display: inline-block;
-			    -webkit-font-smoothing: antialiased;
-			    -moz-osx-font-smoothing: grayscale;
-			    text-decoration: none!important;
-			    color: #444;
-			    vertical-align: bottom;
+				content: "\f140";
+				font: 400 20px/1 dashicons;
+				display: inline-block;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				text-decoration: none!important;
+				color: #444;
+				vertical-align: bottom;
 			}
 
 			div.dataTables_filter input {
-				    float: right;
+					float: right;
 					height: 28px;
 					margin: 5px 0;
 			}
@@ -69,23 +67,23 @@ function wp_queue_failures_page(){
 
 	<?php
 
-		if ( false === ( $failures = wp_cache_get( 'wp_queue_job_failures' ) ) ) {
-			$failures = wp_queue_get_job_failures();
-			wp_cache_set( 'wp_queue_job_failures', $failures, 'wp_queue_job_failures', '86000' );
-		}
+	if ( false === ( $failures = wp_cache_get( 'wp_queue_job_failures' ) ) ) {
+		$failures = wp_queue_get_job_failures();
+		wp_cache_set( 'wp_queue_job_failures', $failures, 'wp_queue_job_failures', '86000' );
+	}
 
 		$data = array();
 
-		foreach( $failures as $job ) {
-			$obj  = array(
-				'id'         	=> $job->id ?? '',
-				'job' 			=> $job->job ?? '',
-				'error'  		=> $job->error ?? '',
-				'failed_at'     => $job->failed_at ?? '',
-			);
+	foreach ( $failures as $job ) {
+		$obj = array(
+			'id'        => $job->id ?? '',
+			'job'       => $job->job ?? '',
+			'error'     => $job->error ?? '',
+			'failed_at' => $job->failed_at ?? '',
+		);
 
-			$data[] = $obj;
-		}
+		$data[] = $obj;
+	}
 
 		wp_localize_script(
 			'data-tables', 'jobs_data', array( 'data' => $data )
@@ -134,7 +132,7 @@ jQuery(function(){
 	});
 	/*
 	jQuery('#wp-queue-jobs-table').append(
-	    jQuery('<tfoot/>').append(jQuery('#wp-queue-jobs-table thead tr').clone());
+		jQuery('<tfoot/>').append(jQuery('#wp-queue-jobs-table thead tr').clone());
 	);
 
 	// Handle the click.

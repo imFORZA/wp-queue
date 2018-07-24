@@ -19,7 +19,7 @@ class SyncConnection implements ConnectionInterface {
 	 *
 	 * @return bool|int
 	 */
-	public function push (Job $job, $category = '', $delay = 0 ) {
+	public function push( Job $job, $category = '', $delay = 0 ) {
 		$job->handle();
 
 		return true;

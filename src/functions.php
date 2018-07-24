@@ -2,18 +2,17 @@
 use WP_Queue\Queue;
 use WP_Queue\QueueManager;
 
-require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/autoloader.php');
-
+// require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/autoloader.php');
 if ( ! function_exists( 'wp_queue' ) ) {
 	/**
 	 * Return Queue instance.
 	 *
-	 * @param string $connection
+	 * @param string $connection Connection to initialize.
 	 *
 	 * @return Queue
 	 */
 	function wp_queue( $connection = '' ) {
-		if( empty( $connection ) ) {
+		if ( empty( $connection ) ) {
 			$connection = apply_filters( 'wp_queue_default_connection', 'database' );
 		}
 
@@ -102,7 +101,7 @@ if ( ! function_exists( 'wp_queue_empty_tables' ) ) {
 
 		global $wpdb;
 
-		$table_jobs = $wpdb->prefix . 'queue_jobs';
+		$table_jobs     = $wpdb->prefix . 'queue_jobs';
 		$table_failures = $wpdb->prefix . 'queue_failures';
 
 		$wpdb->query( "TRUNCATE TABLE $table_jobs" );
@@ -119,7 +118,7 @@ if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
 
 		global $wpdb;
 
-		$table_jobs = $wpdb->prefix . 'queue_jobs';
+		$table_jobs     = $wpdb->prefix . 'queue_jobs';
 		$table_failures = $wpdb->prefix . 'queue_failures';
 
 		$wpdb->query( "DROP TABLE IF EXISTS $table_jobs" );
@@ -141,13 +140,12 @@ if ( ! function_exists( 'wp_queue_count_jobs' ) ) {
 
 		global $wpdb;
 
-		//TODO:
+		// TODO:
 		// Arguments to get count by category
 		// Arguments to get count by attempts
 		// Arguments to get count by priority
 		// Arguments to get count by reserved_at, available_at, created_at dates or date ranges
-
-		$job_count = $wpdb->get_var( "SELECT COUNT(*) FROM " . $wpdb->prefix . 'queue_jobs' . "");
+		$job_count = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'queue_jobs' . '' );
 
 		return $job_count;
 
@@ -167,13 +165,12 @@ if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 
 		global $wpdb;
 
-		//TODO:
+		// TODO:
 		// Arguments to get by category
 		// Arguments to get by attempts
 		// Arguments to get by priority
 		// Arguments to get by reserved_at, available_at, created_at dates or date ranges
-
-		$jobs = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . 'queue_jobs' . "");
+		$jobs = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'queue_jobs' . '' );
 
 		return $jobs;
 
@@ -193,13 +190,12 @@ if ( ! function_exists( 'wp_queue_get_job_failures' ) ) {
 
 		global $wpdb;
 
-		//TODO:
+		// TODO:
 		// Arguments to get by category
 		// Arguments to get by attempts
 		// Arguments to get by priority
 		// Arguments to get by reserved_at, available_at, created_at dates or date ranges
-
-		$failures = $wpdb->get_results( "SELECT * FROM " . $wpdb->prefix . 'queue_failures' . "");
+		$failures = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'queue_failures' . '' );
 
 		return $failures;
 
@@ -216,15 +212,17 @@ if ( ! function_exists( 'wp_queue_debug' ) ) {
 	 * @param string $debug_mode (default: 'false') Debug Mode.
 	 * @return void
 	 */
-	function wp_queue_debug( $debug_mode = 'false' ){
+	function wp_queue_debug( $debug_mode = 'false' ) {
 
-		if( 'true' === $debug_mode ) {
+		if ( 'true' === $debug_mode ) {
 
 			update_option( 'wp_queue_debug', 'true', 'yes' );
 
-			add_filter( 'wp_queue_default_connection', function() {
-				return 'sync';
-			} );
+			add_filter(
+				'wp_queue_default_connection', function() {
+					return 'sync';
+				}
+			);
 
 		} else {
 
@@ -233,5 +231,4 @@ if ( ! function_exists( 'wp_queue_debug' ) ) {
 		}
 
 	}
-
 }

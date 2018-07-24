@@ -12,36 +12,43 @@ use Exception;
 abstract class Job {
 
 	/**
+	 *
 	 * @var int
 	 */
 	private $id;
 
 	/**
+	 *
 	 * @var int
 	 */
 	private $attempts;
 
 	/**
+	 *
 	 * @var Reserved At.
 	 */
 	private $reserved_at;
 
 	/**
+	 *
 	 * @var Available At.
 	 */
 	private $available_at;
 
 	/**
+	 *
 	 * @var Created At.
 	 */
 	private $created_at;
 
 	/**
+	 *
 	 * @var bool
 	 */
 	private $released = false;
 
 	/**
+	 *
 	 * @var bool
 	 */
 	private $failed = false;
