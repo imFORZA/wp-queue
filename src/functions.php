@@ -1,4 +1,10 @@
 <?php
+/**
+ * WP_Queue Functions.
+ *
+ * @package WP_Queue
+ */
+
 use WP_Queue\Queue;
 use WP_Queue\QueueManager;
 
@@ -104,8 +110,8 @@ if ( ! function_exists( 'wp_queue_empty_tables' ) ) {
 		$table_jobs     = $wpdb->prefix . 'queue_jobs';
 		$table_failures = $wpdb->prefix . 'queue_failures';
 
-		$wpdb->query( "TRUNCATE TABLE $table_jobs" );
-		$wpdb->query( "TRUNCATE TABLE $table_failures" );
+		$wpdb->query( $wpdb->prepare( 'TRUNCATE TABLE %s', $table_jobs ) );
+		$wpdb->query( $wpdb->prepare( 'TRUNCATE TABLE %s', $table_failures ) );
 
 	}
 }
