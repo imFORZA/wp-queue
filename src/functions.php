@@ -43,6 +43,29 @@ if ( ! function_exists( 'wp_queue_options' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_queue_wpdb_init' ) ) {
+
+	/**
+	 * Initialize DB tables in WPDB global.
+	 *
+	 * @return void
+	 */
+	function wp_queue_wpdb_init() {
+		global $wpdb;
+
+		// Register table with wpdb.
+		if ( ! isset( $wpdb->queue_jobs ) ) {
+			$wpdb->queue_jobs = $wpdb->prefix . 'queue_jobs';
+			$wpdb->tables[]   = 'queue_jobs';
+		}
+
+		if ( ! isset( $wpdb->queue_failures ) ) {
+			$wpdb->queue_failures = $wpdb->prefix . 'queue_failures';
+			$wpdb->tables[]       = 'queue_failures';
+		}
+	}
+}
+
 if ( ! function_exists( 'wp_queue_uninstall_options' ) ) {
 	/**
 	 * WP Queue Uninstall Options.
@@ -107,11 +130,10 @@ if ( ! function_exists( 'wp_queue_empty_tables' ) ) {
 
 		global $wpdb;
 
-		$table_jobs     = $wpdb->prefix . 'queue_jobs';
-		$table_failures = $wpdb->prefix . 'queue_failures';
+		wp_queue_wpdb_init();
 
-		$wpdb->query( $wpdb->prepare( 'TRUNCATE TABLE %s', $table_jobs ) );
-		$wpdb->query( $wpdb->prepare( 'TRUNCATE TABLE %s', $table_failures ) );
+		$wpdb->query( "TRUNCATE TABLE $wpdb->queue_jobs" );
+		$wpdb->query( "TRUNCATE TABLE $wpdb->table_failures" );
 
 	}
 }
@@ -124,11 +146,10 @@ if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
 
 		global $wpdb;
 
-		$table_jobs     = $wpdb->prefix . 'queue_jobs';
-		$table_failures = $wpdb->prefix . 'queue_failures';
+		wp_queue_wpdb_init();
 
-		$wpdb->query( "DROP TABLE IF EXISTS $table_jobs" );
-		$wpdb->query( "DROP TABLE IF EXISTS $table_failures" );
+		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->queue_jobs" );
+		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->table_failures" );
 
 	}
 }
@@ -139,19 +160,21 @@ if ( ! function_exists( 'wp_queue_count_jobs' ) ) {
 	 * WP Queue Count Jobs.
 	 *
 	 * @access public
-	 * @param string $category (default: '')
-	 * @return void
+	 * @param string $category Optional category to label the job type.
+	 * @return int             Returns Number of jobs in queue.
 	 */
 	function wp_queue_count_jobs( $category = '' ) {
 
 		global $wpdb;
 
+		wp_queue_wpdb_init();
+
 		// TODO:
-		// Arguments to get count by category
-		// Arguments to get count by attempts
-		// Arguments to get count by priority
-		// Arguments to get count by reserved_at, available_at, created_at dates or date ranges
-		$job_count = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . $wpdb->prefix . 'queue_jobs' . '' );
+		// Arguments to get count by category.
+		// Arguments to get count by attempts.
+		// Arguments to get count by priority.
+		// Arguments to get count by reserved_at, available_at, created_at dates or date ranges.
+		$job_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->queue_jobs" );
 
 		return $job_count;
 
@@ -164,8 +187,8 @@ if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 	 * WP Queue Count Jobs.
 	 *
 	 * @access public
-	 * @param string $args Arguments
-	 * @return void
+	 * @param string $args Arguments.
+	 * @return ArrayObject List of jobs from the database.
 	 */
 	function wp_queue_get_jobs( $args = '' ) {
 
@@ -175,8 +198,8 @@ if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 		// Arguments to get by category
 		// Arguments to get by attempts
 		// Arguments to get by priority
-		// Arguments to get by reserved_at, available_at, created_at dates or date ranges
-		$jobs = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'queue_jobs' . '' );
+		// Arguments to get by reserved_at, available_at, created_at dates or date ranges.
+		$jobs = $wpdb->get_results( "SELECT * FROM $wpdb->queue_jobs" );
 
 		return $jobs;
 
@@ -189,8 +212,8 @@ if ( ! function_exists( 'wp_queue_get_job_failures' ) ) {
 	 * WP Queue Count Jobs.
 	 *
 	 * @access public
-	 * @param string $args Arguments
-	 * @return void
+	 * @param string $args Arguments.
+	 * @return ArrayObject  List of falied jobs from the database.
 	 */
 	function wp_queue_get_job_failures( $args = '' ) {
 
@@ -200,8 +223,8 @@ if ( ! function_exists( 'wp_queue_get_job_failures' ) ) {
 		// Arguments to get by category
 		// Arguments to get by attempts
 		// Arguments to get by priority
-		// Arguments to get by reserved_at, available_at, created_at dates or date ranges
-		$failures = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->prefix . 'queue_failures' . '' );
+		// Arguments to get by reserved_at, available_at, created_at dates or date ranges.
+		$failures = $wpdb->get_results( "SELECT * FROM $wpdb->table_failures" );
 
 		return $failures;
 
