@@ -8,7 +8,7 @@
 use WP_Queue\Queue;
 use WP_Queue\QueueManager;
 
-// require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/autoloader.php');
+require_once( trailingslashit( dirname( __FILE__ ) ) . 'inc/autoloader.php');
 if ( ! function_exists( 'wp_queue' ) ) {
 	/**
 	 * Return Queue instance.
@@ -133,7 +133,7 @@ if ( ! function_exists( 'wp_queue_empty_tables' ) ) {
 		wp_queue_wpdb_init();
 
 		$wpdb->query( "TRUNCATE TABLE $wpdb->queue_jobs" );
-		$wpdb->query( "TRUNCATE TABLE $wpdb->table_failures" );
+		$wpdb->query( "TRUNCATE TABLE $wpdb->queue_failures" );
 
 	}
 }
@@ -149,7 +149,7 @@ if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
 		wp_queue_wpdb_init();
 
 		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->queue_jobs" );
-		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->table_failures" );
+		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->queue_failures" );
 
 	}
 }
@@ -194,6 +194,8 @@ if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 
 		global $wpdb;
 
+		wp_queue_wpdb_init();
+
 		// TODO:
 		// Arguments to get by category
 		// Arguments to get by attempts
@@ -219,12 +221,14 @@ if ( ! function_exists( 'wp_queue_get_job_failures' ) ) {
 
 		global $wpdb;
 
+		wp_queue_wpdb_init();
+
 		// TODO:
 		// Arguments to get by category
 		// Arguments to get by attempts
 		// Arguments to get by priority
 		// Arguments to get by reserved_at, available_at, created_at dates or date ranges.
-		$failures = $wpdb->get_results( "SELECT * FROM $wpdb->table_failures" );
+		$failures = $wpdb->get_results( "SELECT * FROM $wpdb->queue_failures" );
 
 		return $failures;
 
