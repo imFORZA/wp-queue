@@ -22,7 +22,7 @@ spl_autoload_register( 'wp_queue_autoload' );
  */
 function wp_queue_autoload( $class_name ) {
 
-	// If the specified $class_name does not include our namespace, duck out.
+	// Leave if Class name does not include our namespace.
 	if ( false === strpos( $class_name, 'WP_Queue' ) ) {
 		return;
 	}
@@ -30,7 +30,21 @@ function wp_queue_autoload( $class_name ) {
 	// Replace Namespace backslashes and replace with dir forward slashes.
 	$file_name = str_replace( '\\', '/', $class_name ) . '.php';
 
+	// Split the class name into an array to read the namespace and class.
+	$file_parts = explode( '\\', $class_name );
+	$last_index = count( $file_parts ) - 1;
+
+	// Build the file name.
+	if ( isset( $file_parts[ $last_index ] ) ) {
+		if ( strpos( strtolower( $file_parts[ $last_index ] ), 'interface' ) ) {
+			$file_parts[ $last_index ] = 'interface-' . strtolower( $file_parts[ $last_index ] );
+		} else {
+			$file_parts[ $last_index ] = 'class-' . strtolower( $file_parts[ $last_index ] );
+		}
+	}
+
 	// Now build a path to the file location.
+	$file_name = implode( '/', $file_parts ) . '.php';
 	$filepath  = trailingslashit( dirname( dirname( __FILE__ ) ) );
 	$filepath .= $file_name;
 
