@@ -1,4 +1,9 @@
 <?php
+/**
+ * Queue class files.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue;
 
@@ -10,12 +15,14 @@ use WP_Queue\Connections\ConnectionInterface;
 class Queue {
 
 	/**
+	 * The connection type you want to use to store your Queue.
 	 *
 	 * @var ConnectionInterface
 	 */
 	protected $connection;
 
 	/**
+	 * The Queue's cron worker.
 	 *
 	 * @var Cron
 	 */
@@ -24,7 +31,7 @@ class Queue {
 	/**
 	 * Queue constructor.
 	 *
-	 * @param ConnectionInterface $connection
+	 * @param ConnectionInterface $connection Queue Data Connection.
 	 */
 	public function __construct( ConnectionInterface $connection ) {
 		$this->connection = $connection;
@@ -33,20 +40,20 @@ class Queue {
 	/**
 	 * Push a job onto the queue;
 	 *
-	 * @param Job $job
-	 * @param int $delay
-	 *
+	 * @param Job    $job      Job to push to queue.
+	 * @param int    $delay    Seconds to delay job.
+	 * @param string $category Optional category to tag jobs.
 	 * @return bool|int
 	 */
 	public function push( Job $job, $delay = 0, $category = '' ) {
-		return $this->connection->push( $job, $category, $delay );
+		return $this->connection->push( $job, $delay, $category );
 	}
 
 	/**
 	 * Create a cron worker.
 	 *
-	 * @param int $attempts
-	 * @param int $interval
+	 * @param int $attempts Time to attempt successful job execution.
+	 * @param int $interval Interval to run cron.
 	 *
 	 * @return Cron
 	 */
@@ -62,7 +69,7 @@ class Queue {
 	/**
 	 * Create a new worker.
 	 *
-	 * @param int $attempts
+	 * @param int $attempts Attempts.
 	 *
 	 * @return Worker
 	 */

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Cron class files.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue;
 
@@ -8,18 +13,21 @@ namespace WP_Queue;
 class Cron {
 
 	/**
+	 * Cron ID.
 	 *
 	 * @var string
 	 */
 	protected $id;
 
 	/**
+	 * Cron Worker.
 	 *
 	 * @var Worker
 	 */
 	protected $worker;
 
 	/**
+	 * Cron interval.
 	 *
 	 * @var int
 	 */
@@ -35,9 +43,9 @@ class Cron {
 	/**
 	 * Cron constructor.
 	 *
-	 * @param string $id
-	 * @param Worker $worker
-	 * @param int    $interval
+	 * @param string $id       Cron ID.
+	 * @param Worker $worker   Cron Worker.
+	 * @param int    $interval Cron Interval.
 	 */
 	public function __construct( $id, $worker, $interval ) {
 		$this->id       = strtolower( str_replace( '\\', '_', $id ) );
@@ -72,7 +80,7 @@ class Cron {
 		add_action( $this->id, array( $this, 'cron_worker' ) );
 
 		if ( ! wp_next_scheduled( $this->id ) ) {
-			// Schedule health check
+			// Schedule health check.
 			wp_schedule_event( time(), $this->id, $this->id );
 		}
 
@@ -82,13 +90,14 @@ class Cron {
 	/**
 	 * Add interval to cron schedules.
 	 *
-	 * @param array $schedules
+	 * @param array $schedules Cron Schedules.
 	 *
 	 * @return array
 	 */
 	public function schedule_cron( $schedules ) {
 		$schedules[ $this->id ] = array(
 			'interval' => MINUTE_IN_SECONDS * $this->interval,
+			// translators: Interval.
 			'display'  => sprintf( __( 'Every %d Minutes' ), $this->interval ),
 		);
 
@@ -171,8 +180,8 @@ class Cron {
 			$memory_limit = '256M';
 		}
 
-		if ( ! $memory_limit || - 1 == $memory_limit ) {
-			// Unlimited, set to 1GB
+		if ( ! $memory_limit || - 1 === (int) $memory_limit ) {
+			// Unlimited, set to 1GB.
 			$memory_limit = '1000M';
 		}
 

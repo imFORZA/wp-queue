@@ -1,4 +1,9 @@
 <?php
+/**
+ * Job class files.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue;
 
@@ -12,42 +17,49 @@ use Exception;
 abstract class Job {
 
 	/**
+	 * Job ID.
 	 *
 	 * @var int
 	 */
 	private $id;
 
 	/**
+	 * Number of times job has been attempted.
 	 *
 	 * @var int
 	 */
 	private $attempts;
 
 	/**
+	 * Time Job has been reserved at.
 	 *
 	 * @var Reserved At.
 	 */
 	private $reserved_at;
 
 	/**
+	 * Time Job is available at.
 	 *
 	 * @var Available At.
 	 */
 	private $available_at;
 
 	/**
+	 * Time Job was created at.
 	 *
 	 * @var Created At.
 	 */
 	private $created_at;
 
 	/**
+	 * Time Job was released at.
 	 *
 	 * @var bool
 	 */
 	private $released = false;
 
 	/**
+	 * Has job failed?
 	 *
 	 * @var bool
 	 */
@@ -70,7 +82,7 @@ abstract class Job {
 	/**
 	 * Set job ID.
 	 *
-	 * @param int $id
+	 * @param int $id Job ID.
 	 */
 	public function set_id( $id ) {
 		$this->id = $id;
@@ -88,7 +100,7 @@ abstract class Job {
 	/**
 	 * Set job attempts.
 	 *
-	 * @param int $attempts
+	 * @param int $attempts Attempt no.
 	 */
 	public function set_attempts( $attempts ) {
 		$this->attempts = $attempts;
@@ -106,7 +118,7 @@ abstract class Job {
 	/**
 	 * Set reserved at date.
 	 *
-	 * @param null|Carbon $reserved_at
+	 * @param null|Carbon $reserved_at Date job was reserved.
 	 */
 	public function set_reserved_at( $reserved_at ) {
 		$this->reserved_at = $reserved_at;

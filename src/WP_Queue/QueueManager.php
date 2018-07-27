@@ -1,4 +1,9 @@
 <?php
+/**
+ * QueueManager class files.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue;
 
@@ -13,6 +18,7 @@ use WP_Queue\Exceptions\ConnectionNotFoundException;
 class QueueManager {
 
 	/**
+	 * Array of connection instances.
 	 *
 	 * @var array
 	 */
@@ -21,7 +27,7 @@ class QueueManager {
 	/**
 	 * Resolve a Queue instance for required connection.
 	 *
-	 * @param string $connection
+	 * @param string $connection The type of connection to use for your queue.
 	 *
 	 * @return Queue
 	 */
@@ -38,10 +44,10 @@ class QueueManager {
 	/**
 	 * Build a queue instance.
 	 *
-	 * @param string $connection
+	 * @param string $connection Connection type.
 	 *
 	 * @return Queue
-	 * @throws \Exception
+	 * @throws ConnectionNotFoundException Throws Cnnection not found except.
 	 */
 	protected static function build( $connection ) {
 		$connections = static::connections();

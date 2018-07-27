@@ -1,4 +1,9 @@
 <?php
+/**
+ * Syncrhronous Connection interface Class file.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue\Connections;
 
@@ -14,12 +19,13 @@ class SyncConnection implements ConnectionInterface {
 	/**
 	 * Execute the job immediately without pushing to the queue.
 	 *
-	 * @param Job $job
-	 * @param int $delay
+	 * @param Job    $job       Job to push to queue.
+	 * @param int    $delay     Delay time for job.
+	 * @param string $category  Category tag to label jobs in db.
 	 *
 	 * @return bool|int
 	 */
-	public function push( Job $job, $category = '', $delay = 0 ) {
+	public function push( Job $job, $delay = 0, $category = '' ) {
 		$job->handle();
 
 		return true;
@@ -37,7 +43,7 @@ class SyncConnection implements ConnectionInterface {
 	/**
 	 * Delete a job from the queue.
 	 *
-	 * @param Job $job
+	 * @param Job $job Job to delete.
 	 *
 	 * @return bool
 	 */
@@ -48,7 +54,7 @@ class SyncConnection implements ConnectionInterface {
 	/**
 	 * Release a job back onto the queue.
 	 *
-	 * @param Job $job
+	 * @param Job $job Job to release.
 	 *
 	 * @return bool
 	 */
@@ -59,8 +65,8 @@ class SyncConnection implements ConnectionInterface {
 	/**
 	 * Push a job onto the failure queue.
 	 *
-	 * @param Job       $job
-	 * @param Exception $exception
+	 * @param Job       $job        Job that failed.
+	 * @param Exception $exception  Exception thrown.
 	 *
 	 * @return bool
 	 */

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Worker class files.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue;
 
@@ -13,12 +18,14 @@ use WP_Queue\Exceptions\WorkerAttemptsExceededException;
 class Worker {
 
 	/**
+	 * Connection used by Worker.
 	 *
 	 * @var ConnectionInterface
 	 */
 	protected $connection;
 
 	/**
+	 * Number of attempts.
 	 *
 	 * @var int
 	 */
@@ -27,8 +34,8 @@ class Worker {
 	/**
 	 * Worker constructor.
 	 *
-	 * @param ConnectionInterface $connection
-	 * @param int                 $attempts
+	 * @param ConnectionInterface $connection Connection interface.
+	 * @param int                 $attempts   Max # of attempts.
 	 */
 	public function __construct( $connection, $attempts = 3 ) {
 		$this->connection = $connection;

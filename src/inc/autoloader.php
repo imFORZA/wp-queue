@@ -22,24 +22,24 @@ spl_autoload_register( 'wp_queue_autoload' );
  */
 function wp_queue_autoload( $class_name ) {
 
-    // If the specified $class_name does not include our namespace, duck out.
-    if ( false === strpos( $class_name, 'WP_Queue' ) ) {
-        return;
-    }
+	// If the specified $class_name does not include our namespace, duck out.
+	if ( false === strpos( $class_name, 'WP_Queue' ) ) {
+		return;
+	}
 
-		// Replace Namespace backslashes and replace with dir forward slashes.
-		$file_name = str_replace( '\\', '/', $class_name ) . ".php";
+	// Replace Namespace backslashes and replace with dir forward slashes.
+	$file_name = str_replace( '\\', '/', $class_name ) . '.php';
 
-		// Now build a path to the file location.
-		$filepath  = trailingslashit( dirname( dirname( __FILE__ ) ) );
-		$filepath .= $file_name;
+	// Now build a path to the file location.
+	$filepath  = trailingslashit( dirname( dirname( __FILE__ ) ) );
+	$filepath .= $file_name;
 
-			// If the file exists in the specified path, then include it.
-			if ( file_exists( $filepath ) ){
-    		include_once( $filepath );
-			} else {
-    		wp_die(
-        	esc_html( "The file attempting to be loaded at $filepath does not exist." )
-    		);
-			}
+	// If the file exists in the specified path, then include it.
+	if ( file_exists( $filepath ) ) {
+		include_once $filepath;
+	} else {
+		wp_die(
+			esc_html( "The file attempting to be loaded at $filepath does not exist." )
+		);
+	}
 }
