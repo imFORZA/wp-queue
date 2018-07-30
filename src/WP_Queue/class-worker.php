@@ -12,73 +12,76 @@ use Exception;
 use WP_Queue\Connections\ConnectionInterface;
 use WP_Queue\Exceptions\WorkerAttemptsExceededException;
 
-/**
- * Worker class.
- */
-class Worker {
+if ( ! class_exists( 'Worker' ) ) {
 
 	/**
-	 * Connection used by Worker.
-	 *
-	 * @var ConnectionInterface
+	 * Worker class.
 	 */
-	protected $connection;
+	class Worker {
 
-	/**
-	 * Number of attempts.
-	 *
-	 * @var int
-	 */
-	protected $attempts;
+		/**
+		 * Connection used by Worker.
+		 *
+		 * @var ConnectionInterface
+		 */
+		protected $connection;
 
-	/**
-	 * Worker constructor.
-	 *
-	 * @param ConnectionInterface $connection Connection interface.
-	 * @param int                 $attempts   Max # of attempts.
-	 */
-	public function __construct( $connection, $attempts = 3 ) {
-		$this->connection = $connection;
-		$this->attempts   = $attempts;
-	}
+		/**
+		 * Number of attempts.
+		 *
+		 * @var int
+		 */
+		protected $attempts;
 
-	/**
-	 * Process a job on the queue.
-	 *
-	 * @return bool
-	 */
-	public function process() {
-		$job = $this->connection->pop();
-
-		if ( ! $job ) {
-			return false;
+		/**
+		 * Worker constructor.
+		 *
+		 * @param ConnectionInterface $connection Connection interface.
+		 * @param int                 $attempts   Max # of attempts.
+		 */
+		public function __construct( $connection, $attempts = 3 ) {
+			$this->connection = $connection;
+			$this->attempts   = $attempts;
 		}
 
-		$exception = null;
+		/**
+		 * Process a job on the queue.
+		 *
+		 * @return bool
+		 */
+		public function process() {
+			$job = $this->connection->pop();
 
-		try {
-			$job->handle();
-		} catch ( Exception $exception ) {
-			$job->release();
-		}
-
-		if ( $job->attempts() >= $this->attempts ) {
-			if ( empty( $exception ) ) {
-				$exception = new WorkerAttemptsExceededException();
+			if ( ! $job ) {
+				return false;
 			}
 
-			$job->fail();
+			$exception = null;
+
+			try {
+				$job->handle();
+			} catch ( Exception $exception ) {
+				$job->release();
+			}
+
+			if ( $job->attempts() >= $this->attempts ) {
+				if ( empty( $exception ) ) {
+					$exception = new WorkerAttemptsExceededException();
+				}
+
+				$job->fail();
+			}
+
+			if ( $job->failed() ) {
+				$this->connection->failure( $job, $exception );
+			} elseif ( $job->released() ) {
+				$this->connection->release( $job );
+			} else {
+				$this->connection->delete( $job );
+			}
+
+			return true;
 		}
 
-		if ( $job->failed() ) {
-			$this->connection->failure( $job, $exception );
-		} elseif ( $job->released() ) {
-			$this->connection->release( $job );
-		} else {
-			$this->connection->delete( $job );
-		}
-
-		return true;
 	}
-
 }
