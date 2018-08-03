@@ -5,9 +5,6 @@
  *
  * @package WP_Queue\Inc
  */
-
-spl_autoload_register( 'wp_queue_autoload' );
-
 if( ! function_exists( 'wp_queue_autoload' ) ) {
 	/**
 	 * Dynamically loads the class attempting to be instantiated elsewhere in the
@@ -59,3 +56,5 @@ if( ! function_exists( 'wp_queue_autoload' ) ) {
 		}
 	}
 }
+
+spl_autoload_register( 'wp_queue_autoload' );
