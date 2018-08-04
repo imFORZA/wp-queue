@@ -10,7 +10,7 @@ use WP_Queue\QueueManager;
 /*
 ---------------------------------------------------------------------------------------------------------------------
 Plugin Name: WP Queue
-Version: 2.0.0
+Version: 2.0.1
 Plugin URI: https://github.com/wp-queue/wp-queue
 Description: A plugin for background processes
 Author: The WP Queue Team.
