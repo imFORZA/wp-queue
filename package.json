@@ -2,7 +2,7 @@
   "name": "wp-queue",
   "author": "wp-queue",
   "description": "A WordPress plugin for background processes",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "gulpScriptVersion": "1.1.1",
   "license": "GPL-2.0",
   "repository": {
