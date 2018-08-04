@@ -20,9 +20,51 @@ License: GPL v3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 ----------------------------------------------------------------------------------------------------------------------
 */
+// Define Versions.
+global $wpqueue_db_version;
+$wpqueue_db_version = '1.0.0';
 
 register_activation_hook( __FILE__, 'wp_queue_options' );
 require_once( trailingslashit( dirname( __FILE__ ) ) . 'autoloader.php');
+
+/**
+ * Function executed on plugins_loaded hook.
+ */
+add_action( 'plugins_loaded', function() {
+	global $wpqueue_db_version;
+
+	// If version dont match, prep imforza for a major version change.
+	if ( get_site_option( 'wpqueue_db_version' ) !== $wpqueue_db_version ) {
+		wp_queue_prep_major_change();
+	}
+});
+
+if ( ! function_exists('wp_queue_prep_major_change') ){
+	/**
+	 * This function preps ands applies any major changes between versions of the plugin.
+	 */
+	function wp_queue_prep_major_change() {
+		// Current Database version.
+		global $wpqueue_db_version;
+
+		// Last version.
+		$installed_ver = get_option( 'wpqueue_db_version' );
+
+		// Do all the update magic in here.
+		if ( $installed_ver !== $wpqueue_db_version ) {
+
+			/* v1.0.0 */
+			if ( version_compare( $installed_ver, '1.0.0', '<' ) ) {
+				// Do something.
+			}
+			/* End v1.0.0 Update */
+
+
+			/* Never modify */
+			update_option( 'wpqueue_db_version', $wpqueue_db_version ); // Update option to latest version.
+		}
+	}
+}
 
 if ( ! function_exists( 'wp_queue' ) ) {
 	/**
@@ -41,22 +83,6 @@ if ( ! function_exists( 'wp_queue' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wp_queue_options' ) ) {
-	/**
-	 * WP Queue Options.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	function wp_queue_options() {
-
-		update_option( 'wp_queue_version', '1.2.1', 'no' );
-		update_option( 'wp_queue_db_version', '1.2.1', 'no' );
-		update_option( 'wp_queue_api_version', '1.0.0', 'no' );
-		update_option( 'wp_queue_debug', 'true', 'yes' );
-
-	}
-}
 
 if ( ! function_exists( 'wp_queue_wpdb_init' ) ) {
 
