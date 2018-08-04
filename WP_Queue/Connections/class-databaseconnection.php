@@ -1,23 +1,37 @@
 <?php
+/**
+ * Datababase Connection interface Class file.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue\Connections;
 
 use Exception;
 use WP_Queue\Job;
 
+/**
+ * Database Connection
+ */
 class DatabaseConnection implements ConnectionInterface {
 
 	/**
+	 * Database connection.
+	 *
 	 * @var wpdb
 	 */
 	protected $database;
 
 	/**
+	 * Database table for jobs.
+	 *
 	 * @var string
 	 */
 	protected $jobs_table;
 
 	/**
+	 * Database table for job failures.
+	 *
 	 * @var string
 	 */
 	protected $failures_table;
@@ -25,7 +39,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * DatabaseQueue constructor.
 	 *
-	 * @param wpdb $wpdb
+	 * @param wpdb $wpdb WPDB global object.
 	 */
 	public function __construct( $wpdb ) {
 		$this->database       = $wpdb;
@@ -36,8 +50,9 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Push a job onto the queue.
 	 *
-	 * @param Job $job
-	 * @param int $delay
+	 * @param Job    $job       Job to push to queue.
+	 * @param int    $delay     Delay time for job.
+	 * @param string $category  Category tag to label jobs in db.
 	 *
 	 * @return bool|int
 	 */
@@ -92,7 +107,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Delete a job from the queue.
 	 *
-	 * @param Job $job
+	 * @param Job $job Job to delete.
 	 *
 	 * @return bool
 	 */
@@ -111,7 +126,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Release a job back onto the queue.
 	 *
-	 * @param Job $job
+	 * @param Job $job Job to release.
 	 *
 	 * @return bool
 	 */
@@ -135,8 +150,8 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Push a job onto the failure queue.
 	 *
-	 * @param Job       $job
-	 * @param Exception $exception
+	 * @param Job       $job        Failed Job.
+	 * @param Exception $exception  Exception thrown.
 	 *
 	 * @return bool
 	 */
@@ -183,7 +198,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Reserve a job in the queue.
 	 *
-	 * @param Job $job
+	 * @param Job $job Job to reserve.
 	 */
 	protected function reserve( $job ) {
 		$data = array(
@@ -216,7 +231,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Vitalize Job with latest data.
 	 *
-	 * @param mixed $raw_job
+	 * @param mixed $raw_job Raw job class string.
 	 *
 	 * @return Job
 	 */
@@ -249,7 +264,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Format an exception error string.
 	 *
-	 * @param Exception $exception
+	 * @param Exception $exception Exception to format.
 	 *
 	 * @return string
 	 */

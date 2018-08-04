@@ -1,28 +1,32 @@
 <?php
+/**
+ * Redis Connection interface Class file.
+ *
+ * @package WP_Queue
+ */
 
 namespace WP_Queue\Connections;
 
 use Exception;
 use WP_Queue\Job;
 
+
 /**
- * SyncConnection class.
- *
- * @implements ConnectionInterface
+ * Redis Connection class.
  */
-class SyncConnection implements ConnectionInterface {
+class RedisConnection implements ConnectionInterface {
+
 	/**
-	 * Execute the job immediately without pushing to the queue.
+	 * Push a job onto the queue.
 	 *
-	 * @param Job $job
-	 * @param int $delay
+	 * @param Job    $job          Job to push to queue.
+	 * @param int    $delay        Delay time for job.
+	 * @param string $category  Category tag to label jobs in db.
 	 *
 	 * @return bool|int
 	 */
-	public function push (Job $job, $category = '', $delay = 0 ) {
-		$job->handle();
-
-		return true;
+	public function push( Job $job, $delay = 0, $category = '' ) {
+		return false;
 	}
 
 	/**
@@ -37,35 +41,26 @@ class SyncConnection implements ConnectionInterface {
 	/**
 	 * Delete a job from the queue.
 	 *
-	 * @param Job $job
-	 *
-	 * @return bool
+	 * @param Job $job Job to delete.
 	 */
 	public function delete( $job ) {
-		return false;
 	}
 
 	/**
 	 * Release a job back onto the queue.
 	 *
-	 * @param Job $job
-	 *
-	 * @return bool
+	 * @param Job $job Job to release.
 	 */
 	public function release( $job ) {
-		return false;
 	}
 
 	/**
 	 * Push a job onto the failure queue.
 	 *
-	 * @param Job       $job
-	 * @param Exception $exception
-	 *
-	 * @return bool
+	 * @param Job       $job       Job totpush on failure queue.
+	 * @param Exception $exception Exception thrown.
 	 */
 	public function failure( $job, Exception $exception ) {
-		return false;
 	}
 
 	/**
@@ -85,4 +80,5 @@ class SyncConnection implements ConnectionInterface {
 	public function failed_jobs() {
 		return 0;
 	}
+
 }

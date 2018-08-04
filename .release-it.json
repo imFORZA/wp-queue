@@ -1,0 +1,16 @@
+{
+  "non-interactive": true,
+  "src": {
+    "tagName": "%s"
+  },
+  "github": {
+    "release": true,
+    "assets": "dist/*.zip"
+  },
+  "npm":{
+    "publish" : false,
+    "tag": false
+  },
+  "buildCommand": "gulp zip",
+  "requireCleanWorkingDir": false
+}
