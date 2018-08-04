@@ -7,7 +7,7 @@
   "license": "GPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/wp-gulp/wp-gulp"
+    "url": "https://github.com/wp-queue/wp-queue"
   },
   "scripts": {
     "env": "env",
