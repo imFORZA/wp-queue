@@ -3,3 +3,4 @@ composer.lock
 coverage.clover
 /node_modules/
 gulpconf.js
+/dist
