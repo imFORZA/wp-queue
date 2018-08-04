@@ -2,7 +2,7 @@
   "name": "WP-Gulp",
   "author": "wp-gulp",
   "description": "Gulp script for Developing WordPress Plugins & Themes",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "gulpScriptVersion": "1.1.1",
   "license": "GPL-2.0",
   "repository": {
