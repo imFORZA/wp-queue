@@ -19,7 +19,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 ----------------------------------------------------------------------------------------------------------------------
 */
 
-require_once 'src/functions.php';
+require_once 'functions.php';
 
 register_activation_hook( __FILE__, 'wp_queue_install_tables' );
 register_activation_hook( __FILE__, 'wp_queue_options' );
