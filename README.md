@@ -27,36 +27,39 @@ Job classes should extend the `WP_Queue\Job` class and normally only contain a `
 
 use WP_Queue\Job;
 
-/**
- * Subscribe_User_Job class.
- *
- * @extends Job
- */
-class Subscribe_User_Job extends Job {
+if ( ! class_exists( 'Subscribe_User_Job' ) {
 
 	/**
-	 * @var int
-	 */
-	public $user_id;
-
-	/**
-	 * Subscribe_User_Job constructor.
+	 * Subscribe_User_Job class.
 	 *
-	 * @param int $user_id
+	 * @extends Job
 	 */
-	public function __construct( $user_id ) {
-		$this->user_id = $user_id;
+	class Subscribe_User_Job extends Job {
+
+		/**
+		 * @var int
+		 */
+		public $user_id;
+
+		/**
+		 * Subscribe_User_Job constructor.
+		 *
+		 * @param int $user_id
+		 */
+		public function __construct( $user_id ) {
+			$this->user_id = $user_id;
+		}
+
+		/**
+		 * Handle job logic.
+		 */
+		public function handle() {
+			$user = get_user_by( 'ID', $this->user_id );
+
+			// Process the user...
+		}
+
 	}
-
-	/**
-	 * Handle job logic.
-	 */
-	public function handle() {
-		$user = get_user_by( 'ID', $this->user_id );
-
-		// Process the user...
-	}
-
 }
 ```
 
