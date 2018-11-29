@@ -4,6 +4,7 @@
  *
  * @package WP_Queue
  */
+
 use WP_Queue\Queue;
 use WP_Queue\QueueManager;
 
