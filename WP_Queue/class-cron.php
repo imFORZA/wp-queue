@@ -7,7 +7,7 @@
 
 namespace WP_Queue;
 
-if( ! class_exists( 'Cron' ) ) {
+if ( ! class_exists( 'Cron' ) ) {
 	/**
 	 * Cron class.
 	 */

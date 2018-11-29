@@ -9,7 +9,7 @@ namespace WP_Queue;
 
 use Exception;
 
-if( ! class_exists( 'Job' ) ) {
+if ( ! class_exists( 'Job' ) ) {
 	/**
 	 * Abstract Job class.
 	 *

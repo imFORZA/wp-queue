@@ -12,7 +12,7 @@ use WP_Queue\Connections\RedisConnection;
 use WP_Queue\Connections\SyncConnection;
 use WP_Queue\Exceptions\ConnectionNotFoundException;
 
-if( ! class_exists( 'QueueManager' ) ) {
+if ( ! class_exists( 'QueueManager' ) ) {
 	/**
 	 * QueueManager class.
 	 */

@@ -9,7 +9,7 @@ namespace WP_Queue;
 
 use WP_Queue\Connections\ConnectionInterface;
 
-if( ! class_exists( 'Queue' ) ) {
+if ( ! class_exists( 'Queue' ) ) {
 
 	/**
 	 * Queue class.

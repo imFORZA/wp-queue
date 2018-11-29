@@ -25,20 +25,23 @@ global $wpqueue_db_version;
 $wpqueue_db_version = '1.0.0';
 
 register_activation_hook( __FILE__, 'wp_queue_options' );
-require_once( trailingslashit( dirname( __FILE__ ) ) . 'autoloader.php');
+require_once trailingslashit( dirname( __FILE__ ) ) . 'autoloader.php';
 
-if ( ! function_exists('wp_queue_prep_major_change') ){
+if ( ! function_exists( 'wp_queue_prep_major_change' ) ) {
 	/**
 	 * Function executed on plugins_loaded hook.
 	 */
-	add_action( 'plugins_loaded', function() {
-		global $wpqueue_db_version;
+	add_action(
+		'plugins_loaded',
+		function() {
+			global $wpqueue_db_version;
 
-		// If version dont match, prep imforza for a major version change.
-		if ( get_site_option( 'wpqueue_db_version' ) !== $wpqueue_db_version ) {
-			wp_queue_prep_major_change();
+			// If version dont match, prep imforza for a major version change.
+			if ( get_site_option( 'wpqueue_db_version' ) !== $wpqueue_db_version ) {
+				wp_queue_prep_major_change();
+			}
 		}
-	});
+	);
 
 	/**
 	 * This function preps ands applies any major changes between versions of the plugin.
@@ -58,7 +61,6 @@ if ( ! function_exists('wp_queue_prep_major_change') ){
 				// Do something.
 			}
 			/* End v1.0.0 Update */
-
 
 			/* Never modify */
 			update_option( 'wpqueue_db_version', $wpqueue_db_version ); // Update option to latest version.
@@ -293,7 +295,8 @@ if ( ! function_exists( 'wp_queue_debug' ) ) {
 			update_option( 'wp_queue_debug', 'true', 'yes' );
 
 			add_filter(
-				'wp_queue_default_connection', function() {
+				'wp_queue_default_connection',
+				function() {
 					return 'sync';
 				}
 			);

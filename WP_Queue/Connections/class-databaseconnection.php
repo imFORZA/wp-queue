@@ -58,7 +58,8 @@ class DatabaseConnection implements ConnectionInterface {
 	 */
 	public function push( Job $job, $delay = 0, $category = '' ) {
 		$result = $this->database->insert(
-			$this->jobs_table, array(
+			$this->jobs_table,
+			array(
 				'job'          => serialize( $job ),
 				'category'     => $category,
 				'available_at' => $this->datetime( $delay ),
@@ -88,7 +89,8 @@ class DatabaseConnection implements ConnectionInterface {
 			AND available_at <= %s
 			ORDER BY available_at
 			LIMIT 1
-		", $this->datetime()
+		",
+			$this->datetime()
 		);
 
 		$raw_job = $this->database->get_row( $sql );
@@ -157,7 +159,8 @@ class DatabaseConnection implements ConnectionInterface {
 	 */
 	public function failure( $job, Exception $exception ) {
 		$insert = $this->database->insert(
-			$this->failures_table, array(
+			$this->failures_table,
+			array(
 				'job'       => serialize( $job ),
 				'error'     => $this->format_exception( $exception ),
 				'failed_at' => $this->datetime(),
@@ -206,7 +209,9 @@ class DatabaseConnection implements ConnectionInterface {
 		);
 
 		$this->database->update(
-			$this->jobs_table, $data, array(
+			$this->jobs_table,
+			$data,
+			array(
 				'id' => $job->id(),
 			)
 		);
@@ -222,7 +227,8 @@ class DatabaseConnection implements ConnectionInterface {
 			"
 				UPDATE {$this->jobs_table}
 				SET attempts = attempts + 1, reserved_at = NULL
-				WHERE reserved_at <= %s", $expired
+				WHERE reserved_at <= %s",
+			$expired
 		);
 
 		$this->database->query( $sql );

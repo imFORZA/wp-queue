@@ -5,7 +5,7 @@
  *
  * @package WP_Queue\Inc
  */
-if( ! function_exists( 'wp_queue_autoload' ) ) {
+if ( ! function_exists( 'wp_queue_autoload' ) ) {
 	/**
 	 * Dynamically loads the class attempting to be instantiated elsewhere in the
 	 * plugin by looking at the $class_name parameter being passed as an argument.
@@ -43,7 +43,7 @@ if( ! function_exists( 'wp_queue_autoload' ) ) {
 
 		// Now build a path to the file location.
 		$file_name = implode( '/', $file_parts ) . '.php';
-		$filepath  = trailingslashit( dirname(  __FILE__ ) );
+		$filepath  = trailingslashit( dirname( __FILE__ ) );
 		$filepath .= $file_name;
 
 		// If the file exists in the specified path, then include it.
