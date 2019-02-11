@@ -76,7 +76,7 @@ You can pass in a Category Name, and you can create delayed jobs by passing an o
 
 ```PHP
 <?php
-wp_queue()->push( new Subscribe_User_Job( 12345 ), 'example-category', 3600 );
+wp_queue()->push( new Subscribe_User_Job( 12345 ), 3600, 'example-category' );
 ```
 
 ## Cron Worker
