@@ -226,6 +226,42 @@ if ( ! function_exists( 'wp_queue_count_jobs' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wp_queue_has_jobs' ) ) {
+
+	/**
+	 * wp_queue_has_jobs function.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	function wp_queue_has_jobs() {
+
+		// Defaults.
+		$count_id = '';
+		$results = false;
+
+		global $wpdb;
+
+		$table = "{$wpdb->prefix}queue_jobs";
+
+		$count = $wpdb->get_results( "SELECT id FROM $table LIMIT 1" ) ?? '';
+
+		if( ! empty( $count[0] ) ) {
+			$count_id = $count[0]->id ?? '';
+		}
+
+		if( ! empty( $count_id ) ) {
+			$results = true;
+		} else {
+			$results = false;
+		}
+
+		return $results;
+
+	}
+
+}
+
 
 if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 
