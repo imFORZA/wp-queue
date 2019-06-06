@@ -201,29 +201,31 @@ if ( ! function_exists( 'wp_queue_uninstall_tables' ) ) {
 if ( ! function_exists( 'wp_queue_count_jobs' ) ) {
 
 	/**
-	 * WP Queue Count Jobs.
+	 * wp_queue_count_jobs function.
 	 *
 	 * @access public
-	 * @param string $category Optional category to label the job type.
-	 * @return int             Returns Number of jobs in queue.
+	 * @return void
 	 */
 	function wp_queue_count_jobs( $category = '' ) {
 
+		$count = 0;
+
 		global $wpdb;
 
-		wp_queue_wpdb_init();
+		$table = "{$wpdb->prefix}queue_jobs";
 
-		// TODO:
-		// Arguments to get count by category.
-		// Arguments to get count by attempts.
-		// Arguments to get count by priority.
-		// Arguments to get count by reserved_at, available_at, created_at dates or date ranges.
-		$job_count = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->queue_jobs" );
+		$esc_category = esc_sql( $category );
 
-		return $job_count;
+		if( ! empty( $category ) || '' !== $category ) {
+			$count = $wpdb->get_var( "SELECT COUNT(id) FROM $table WHERE category = '$esc_category'" );
+		} else {
+			$count = $wpdb->get_var( "SELECT COUNT(id) FROM $table" );
+		}
 
+		return $count;
 	}
 }
+
 
 if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 
@@ -240,12 +242,37 @@ if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 
 		wp_queue_wpdb_init();
 
-		// TODO:
-		// Arguments to get by category
-		// Arguments to get by attempts
-		// Arguments to get by priority
-		// Arguments to get by reserved_at, available_at, created_at dates or date ranges.
-		$jobs = $wpdb->get_results( "SELECT * FROM $wpdb->queue_jobs" );
+		if ( ! empty( $args['order_by'] ) ) {
+				$order_by = esc_sql( $args['order_by'] ) ?? 'id';
+		} else {
+			$order_by = esc_sql( 'id' );
+		}
+
+		if ( ! empty( $args['order'] ) ) {
+			$order = esc_sql( $args['order'] ) ?? 'ASC';
+		} else {
+			$order = esc_sql( 'ASC' );
+		}
+
+		if ( ! empty( $args['fields'] ) && is_array( $args['fields'] ) ) {
+			$fields = esc_sql( implode( ',', $args['fields'] ) ) ?? '*';
+		} else {
+			$fields = esc_sql( '*' );
+		}
+
+		if ( ! empty( $args['offset'] ) ) {
+			$offset = esc_sql( intval( $args['offset'] ) ) ?? 0;
+		} else {
+			$offset = 0;
+		}
+
+		if ( ! empty( $args['page_size'] ) ) {
+			$page_size = esc_sql( intval( $args['page_size'] ) ) ?? 25;
+		} else {
+			$page_size = esc_sql( 25 );
+		}
+
+		$jobs = $wpdb->get_results( "SELECT $fields FROM $wpdb->queue_jobs ORDER BY $order_by $order LIMIT $page_size OFFSET $offset" );
 
 		return $jobs;
 
