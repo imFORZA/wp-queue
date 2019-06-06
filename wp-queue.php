@@ -236,7 +236,7 @@ if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 	 * @param string $args Arguments.
 	 * @return ArrayObject List of jobs from the database.
 	 */
-	function wp_queue_get_jobs( $args = '' ) {
+	function wp_queue_get_jobs( $args = array() ) {
 
 		global $wpdb;
 
