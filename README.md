@@ -85,7 +85,7 @@ Jobs need to be processed by a queue worker. You can start a cron worker like so
 
 ```PHP
 <?php
-if( wp_queue_count_jobs() > 0 ){ // Only trigger worker when jobs are available
+if( wp_queue_has_jobs() ){ // Only trigger worker when jobs are available.
 	wp_queue()->cron();
 }
 ```
@@ -94,7 +94,7 @@ You can also specify the number of times a job should be attempted before being 
 
 ```PHP
 <?php
-if( wp_queue_count_jobs() > 0 ){
+if( wp_queue_has_jobs() ){
 	wp_queue()->cron( 3 );
 }
 ```
