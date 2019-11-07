@@ -262,6 +262,71 @@ if ( ! function_exists( 'wp_queue_has_jobs' ) ) {
 
 }
 
+if ( ! function_exists( 'wp_queue_category_has_jobs' ) ) {
+
+	/**
+	 * wp_queue_has_jobs function.
+	 *
+	 * @access public
+	 * @return void
+	 */
+	function wp_queue_category_has_jobs( $category ) {
+
+		// Defaults.
+		$count_id = '';
+		$results  = false;
+
+		global $wpdb;
+
+		$table = "{$wpdb->prefix}queue_jobs";
+
+		$esc_category = esc_sql( $category );
+
+		$count = $wpdb->get_results( "SELECT id FROM $table WHERE category = '$esc_category' LIMIT 1" ) ?? '';
+
+		if ( ! empty( $count[0] ) ) {
+			$count_id = $count[0]->id ?? '';
+		}
+
+		if ( ! empty( $count_id ) ) {
+			$results = true;
+		} else {
+			$results = false;
+		}
+
+		return $results;
+
+	}
+}
+
+if ( ! function_exists( 'wp_queue_get_job_failures' ) ) {
+
+	/**
+	 * WP Queue Count Jobs.
+	 *
+	 * @access public
+	 * @param string $args Arguments.
+	 * @return ArrayObject  List of falied jobs from the database.
+	 */
+	function wp_queue_get_job_failures( $args = '' ) {
+
+		global $wpdb;
+
+		wp_queue_wpdb_init();
+
+		// TODO:
+		// Arguments to get by category
+		// Arguments to get by attempts
+		// Arguments to get by priority
+		// Arguments to get by reserved_at, available_at, created_at dates or date ranges.
+		$failures = $wpdb->get_results( "SELECT * FROM $wpdb->queue_failures" );
+
+		return $failures;
+
+	}
+}
+
+
 
 if ( ! function_exists( 'wp_queue_get_jobs' ) ) {
 
@@ -350,7 +415,6 @@ if ( ! function_exists( 'wp_queue_debug' ) ) {
 	 *
 	 * @access public
 	 * @param string $debug_mode (default: 'false') Debug Mode.
-	 * @return void
 	 */
 	function wp_queue_debug( $debug_mode = 'false' ) {
 
