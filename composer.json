@@ -18,8 +18,11 @@
     },
     "autoload": {
         "psr-4": {
-            "WP_Queue\\": "src\\WP_Queue"
-        }
+            "WP_Queue\\": "WP_Queue"
+        },
+        "files": [
+          "wp-queue.php"
+        ]
     },
     "require-dev": {
         "stevegrunwell/wp-enforcer": "^0.5.0"
