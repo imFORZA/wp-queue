@@ -1,11 +1,3 @@
-[![Build Status](https://travis-ci.org/A5hleyRich/wp-queue.svg?branch=master)](https://travis-ci.org/A5hleyRich/wp-queue)
-[![Code Coverage](https://scrutinizer-ci.com/g/A5hleyRich/wp-queue/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/A5hleyRich/wp-queue/?branch=master)
-[![Total Downloads](https://poser.pugx.org/a5hleyrich/wp-queue/downloads)](https://packagist.org/packages/a5hleyrich/wp-queue)
-[![Latest Stable Version](https://poser.pugx.org/a5hleyrich/wp-queue/v/stable)](https://packagist.org/packages/a5hleyrich/wp-queue)
-[![License](https://poser.pugx.org/a5hleyrich/wp-queue/license)](https://packagist.org/packages/a5hleyrich/wp-queue)
-[![Maintainability](https://api.codeclimate.com/v1/badges/1a6203b7fef1ed49fb36/maintainability)](https://codeclimate.com/github/imFORZA/wp-queue/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/1a6203b7fef1ed49fb36/test_coverage)](https://codeclimate.com/github/imFORZA/wp-queue/test_coverage)
-
 ## Prerequisites
 
 WP_Queue requires PHP __7.0+__.
