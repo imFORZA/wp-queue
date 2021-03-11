@@ -18,7 +18,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * Database connection.
 	 *
-	 * @var wpdb
+	 * @var \wpdb
 	 */
 	protected $database;
 
@@ -39,7 +39,7 @@ class DatabaseConnection implements ConnectionInterface {
 	/**
 	 * DatabaseQueue constructor.
 	 *
-	 * @param wpdb $wpdb WPDB global object.
+	 * @param \wpdb $wpdb WPDB global object.
 	 */
 	public function __construct( $wpdb ) {
 		$this->database       = $wpdb;
